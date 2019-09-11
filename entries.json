@@ -1,0 +1,12 @@
+[
+    {
+        "domain": "vsdns.secure",
+        "records": [
+            {
+                "type": "A",
+                "address": "10.0.0.8",
+                "ttl": 1800
+            }
+        ]
+    }
+]

@@ -1,0 +1,16 @@
+doctype html
+head
+    title 🚫 No access 🚫
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" type="text/css" href="/app/styles/blocked.css")
+body
+    h1 VSDNS
+    h2 Resource blocked
+    #ip.container-fluid <div id="ip" type="type/html"></div>
+    #text.container-fluid The resource you have tried to access has been blocked by the network administrator.
+    
+
+        
+script.
+    document.getElementById("ip").innerHTML =  window.location.href;
