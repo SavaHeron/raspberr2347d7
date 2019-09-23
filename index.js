@@ -9,6 +9,7 @@ Licence:	CC BY-NC-ND 4.0
 
 const dns = require(`native-dns`);
 const async = require(`async`);
+const mariadb = require(`mariadb`)
 const fs = require(`fs`);
 const ip = require(`ip`);
 
@@ -28,7 +29,7 @@ const externalresolver = {
 
 function proxyrequest(question, response, callback) {
 	console.log(`proxying request for ${JSON.stringify(question.name)} to "${externalresolver.address}"`);
-	fs.appendFile(`./proxied.log`, `proxying request for ${JSON.stringify(question.name)} to "${externalresolver.address}"\n`, function (error) {
+	fs.appendFile(`./logs/proxied.log`, `proxying request for ${JSON.stringify(question.name)} to "${externalresolver.address}"\n`, function (error) {
 		if (error) throw error;
 	});
 	let request = dns.Request({	//formulates request to upstream authoritative server
@@ -47,7 +48,7 @@ function proxyrequest(question, response, callback) {
 
 function handlerequest(request, response) {	//main function to handle requests
 	console.log(`request from ${JSON.stringify(request.address.address)} for ${JSON.stringify(request.question[0].name)}`);
-	fs.appendFile(`./requests.log`, `request from ${JSON.stringify(request.address.address)} for ${JSON.stringify(request.question[0].name)}\n`, function (error) {
+	fs.appendFile(`./logs/requests.log`, `request from ${JSON.stringify(request.address.address)} for ${JSON.stringify(request.question[0].name)}\n`, function (error) {
 		if (error) throw error;
 	});
 	let i = []; //array of requests
@@ -59,7 +60,7 @@ function handlerequest(request, response) {	//main function to handle requests
 	if (block.length) {	//if regex finds match(es)
 		request.question.forEach(_question => {
 			console.log(`blocking request for "${request.question[0].name}"`);	//confirms blocking of URL to STDOUT
-			fs.appendFile(`./blocked.log`, `blocking request for "${request.question[0].name}"\n`, function (error) {	//saves to log
+			fs.appendFile(`./logs/blocked.log`, `blocking request for "${request.question[0].name}"\n`, function (error) {	//saves to log
 				if (error) throw error;
 			});
 			response.answer.push(dns.CNAME({	//hijacks URL to point towards blockpage
@@ -71,11 +72,11 @@ function handlerequest(request, response) {	//main function to handle requests
 	} else {
 		request.question.forEach(question => {	//compare question.name against entries
 			let entry = entries.filter(element => {
-				return new RegExp(question.name, `i`).exec(element.domain);	
+				return new RegExp(question.name, `i`).exec(element.domain);
 			});
 			if (entry.length) {	//if regex finds match(es)
 				console.log(`resolving request for "${request.question[0].name}"`);
-				fs.appendFile(`./resolved.log`, `resolving request for "${request.question[0].name}"\n`, function (error) { //saves to log
+				fs.appendFile(`./logs/resolved.log`, `resolving request for "${request.question[0].name}"\n`, function (error) { //saves to log
 					if (error) throw error;
 				});
 				entry[0].records.forEach(record => {
@@ -92,7 +93,7 @@ function handlerequest(request, response) {	//main function to handle requests
 							return proxyrequest(question, response, callback);
 						});
 					};
-					response.answer.push(dns[record.type](record));
+					return response.answer.push(dns[record.type](record));
 				});
 			} else {
 				i.push(callback => {
@@ -102,7 +103,9 @@ function handlerequest(request, response) {	//main function to handle requests
 		});
 	};
 	async.parallel(i, function () {
-		response.send();
+		let cache = require(`./cache.json`);
+		cache.push(JSON.stringify(response));
+		return response.send();
 	});
 };
 
