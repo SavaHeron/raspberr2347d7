@@ -1,0 +1,30 @@
+{
+  "name": "coursework",
+  "version": "1.0.0",
+  "description": "A-Level Computer Science Coursework",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^3.1.0",
+    "dhcp": "^0.2.18",
+    "express": "^4.17.1",
+    "ip": "^1.1.5",
+    "mariadb": "^2.1.1",
+    "native-dns": "^0.7.0",
+    "nfqueue-ng": "^0.1.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SavaHeron/raspberr2347d7.git"
+  },
+  "author": "Sava Max Heron",
+  "license": "CC-BY-NC-ND-4.0",
+  "bugs": {
+    "url": "https://github.com/SavaHeron/raspberr2347d7/issues"
+  },
+  "homepage": "https://github.com/SavaHeron/raspberr2347d7#readme"
+}
