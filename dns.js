@@ -103,8 +103,6 @@ function handlerequest(request, response) {	//main function to handle requests
 		});
 	};
 	async.parallel(i, function () {
-		let cache = require(`./cache.json`);
-		cache.push(JSON.stringify(response));
 		return response.send();
 	});
 };
