@@ -1,6 +1,6 @@
 /*
 Name: 		index.js
-Purpose:	A-Level Computer Science coursework	new DNS script
+Purpose:	A-Level Computer Science coursework DNS script
 Author:		Sava Max Heron
 Created:	27/09/2019
 Copyright:	(c) SMH 2019

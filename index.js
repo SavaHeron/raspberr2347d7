@@ -7,7 +7,7 @@ Copyright:	(c) SMH 2019
 Licence:	CC BY-NC-ND 4.0
 */
 
-const Server = require(`./newdns`)
+const Server = require(`./dns`)
 const ip = require(`ip`);
 
 const localip = ip.address();
