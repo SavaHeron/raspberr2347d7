@@ -1,5 +1,5 @@
 /*
-Name: 		index.js
+Name: 		dns.js
 Purpose:	A-Level Computer Science coursework DNS script
 Author:		Sava Max Heron
 Created:	27/09/2019

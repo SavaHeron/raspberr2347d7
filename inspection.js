@@ -1,12 +1,3 @@
-/*
-Name: 		app.js
-Purpose:	A-Level Computer Science coursework	inspection script
-Author:		Sava Max Heron
-Created:	26/09/2019
-Copyright:	(c) SMH 2019
-Licence:	CC BY-NC-ND 4.0
-*/
-
 const nfq = require(`nfqueue-ng`);
 const IPv4 = require(`pcap/decode/ipv4`);
 

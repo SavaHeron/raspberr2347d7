@@ -10,17 +10,24 @@ Licence:	CC BY-NC-ND 4.0
 const express = require(`express`);
 const app = express()
 
-app.set(`view engine`, `pug`);
-app.set(`views`, `${__dirname}/app/views`)
+class App {
+    constructor(port) {
+        this.port = port;
+    };
 
-app.get(`/app/styles/blocked.css`, function (_request, response) {
-    response.sendFile(`./app/styles/blocked.css`, { root: __dirname });
-});
+    startapp() {
+        app.set(`view engine`, `pug`);
+        app.set(`views`, `${__dirname}/app/views`);
+        app.listen(this.port, function () {
+            console.log(`listening on ${this.port}`)
+        });
+        app.get(`/app/styles/blocked.css`, function (_request, response) {
+            response.sendFile(`./app/styles/blocked.css`, { root: __dirname });
+        });
+        app.get(`*`, function (_request, response) {    //keep at bottom
+            response.render(`blocked`)
+        })
+    };
+};
 
-app.get(`*`, function (_request, response) {    //keep at bottom
-    response.render(`blocked`)
-})
-
-app.listen(80, function() {
-    console.log(`listening on 80`)
-})
+module.exports = App;
