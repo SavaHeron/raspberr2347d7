@@ -19,6 +19,7 @@ class App {
         app.set(`view engine`, `pug`);
         app.set(`views`, `${__dirname}/app/views`);
         app.listen(this.port, function () {
+	    let port = this.port
             console.log(`listening on ${this.port}`)
         });
         app.get(`/app/styles/blocked.css`, function (_request, response) {

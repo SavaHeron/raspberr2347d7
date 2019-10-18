@@ -7,8 +7,9 @@ Copyright:	(c) SMH 2019
 Licence:	CC BY-NC-ND 4.0
 */
 
-const Server = require(`./dns`)
-const App = require(`./app`)
+const Server = require(`./dns`);
+const App = require(`./app`);
+//const setup = require(`./setup`);
 const ip = require(`ip`);
 
 const localip = ip.address();
@@ -30,13 +31,13 @@ const appport1 = 80
 const appport2 = 8080
 
 const app1 = new App(appport1);
-app1.startserver();
+app1.startapp();
 
 const app2 = new App(appport2);
-app2.startserver();
+app2.startapp();
 
 const dns1 = new Server(localip, externalresolver1);
 dns1.startserver();
 
-const dns2 = new Server(localip, externalresolver2);
-dns2.startserver();
+//const dns2 = new Server(localip, externalresolver2);
+//dns2.startserver();
